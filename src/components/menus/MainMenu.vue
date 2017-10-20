@@ -55,6 +55,11 @@
       Export to disk
     </menu-entry>
     <hr>
+    <menu-entry @click.native="setPanel('membank')">
+      <icon-hard-disk slot="icon"></icon-hard-disk>
+      Save to Membank
+    </menu-entry>
+    <hr>
     <menu-entry @click.native="setPanel('more')">
       More...
     </menu-entry>

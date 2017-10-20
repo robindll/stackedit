@@ -16,6 +16,7 @@
       <sync-menu v-else-if="panel === 'sync'"></sync-menu>
       <publish-menu v-else-if="panel === 'publish'"></publish-menu>
       <export-menu v-else-if="panel === 'export'"></export-menu>
+      <mem-bank-menu v-else-if="panel === 'membank'"></mem-bank-menu>
       <more-menu v-else-if="panel === 'more'"></more-menu>
       <div v-else-if="panel === 'help'" class="side-bar__panel side-bar__panel--help">
         <pre class="markdown-highlighting" v-html="markdownSample"></pre>
@@ -36,6 +37,7 @@ import MainMenu from './menus/MainMenu';
 import SyncMenu from './menus/SyncMenu';
 import PublishMenu from './menus/PublishMenu';
 import ExportMenu from './menus/ExportMenu';
+import MemBankMenu from './menus/MemBankMenu';
 import MoreMenu from './menus/MoreMenu';
 import markdownSample from '../data/markdownSample.md';
 import markdownConversionSvc from '../services/markdownConversionSvc';
@@ -47,6 +49,7 @@ const panelNames = {
   sync: 'Synchronize',
   publish: 'Publish',
   export: 'Export to disk',
+  membank: 'Save to MemBank',
   more: 'More',
 };
 
@@ -58,6 +61,7 @@ export default {
     SyncMenu,
     PublishMenu,
     ExportMenu,
+    MemBankMenu,
     MoreMenu,
   },
   data: () => ({
