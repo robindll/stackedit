@@ -45,6 +45,9 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 1 : 0,
 
     // allow alert during development
-    'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0
+    'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0,
+
+    // Disable LF/CRLF check
+    'linebreak-style': 0
   }
 }
