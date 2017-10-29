@@ -45,6 +45,10 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 1 : 0,
 
     // allow alert during development
-    'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0
+    'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0,
+
+    // Disble line break style check since this code will be both
+    // edited in Unix and Windows
+    'linebreak-style': 0
   }
 }
