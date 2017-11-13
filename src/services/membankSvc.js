@@ -44,6 +44,34 @@ export default {
       });
   },
 
+  loadAllMemories(person) {
+    return new Promise((resolve, reject) => {
+      // Get all memory ids for given person
+      const url = `http://localhost:8081/memory/${person}`;
+      let body = '';
+
+      const req = http.get(url, (res) => {
+        console.log(`Status: ${res.statusCode}`);
+        console.log(`Headers: ${JSON.stringify(res.headers)}`);
+        res.setEncoding('utf8');
+        res.on('data', (data) => {
+          console.log(`data: ${data}`);
+          body += data;
+        });
+
+        res.on('end', () => {
+          console.log(`body : ${body}`);
+          resolve(body);
+        });
+      });
+
+      req.on('error', (e) => {
+        console.log(`problem with request: ${e.message}`);
+        reject(e);
+      });
+    });
+  },
+
   loadAMemory(memoryId) {
     return new Promise((resolve, reject) => {
       // Get memory by memoryId.

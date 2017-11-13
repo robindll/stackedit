@@ -5,10 +5,25 @@
       <div>Save to Membank</div>
       <span>Save to Membank</span>
     </menu-entry>
-    <menu-entry @click.native="LoadAMemory">
+    <menu-entry @click.native="cleanDisplayedMemories">
+      <icon-download slot="icon"></icon-download>
+      <div>Clean displayed memories</div>
+      <span>Clean displayed memories</span>
+    </menu-entry>
+    <menu-entry @click.native="loadAllMemories">
+      <icon-download slot="icon"></icon-download>
+      <div>Load all memories</div>
+      <span>Load all memories</span>
+    </menu-entry>
+    <menu-entry @click.native="loadAMemory">
       <icon-download slot="icon"></icon-download>
       <div>Load a memory</div>
       <span>Load a memory</span>
+    </menu-entry>
+    <menu-entry @click.native="cleanTrash">
+      <icon-download slot="icon"></icon-download>
+      <div>Clean trash</div>
+      <span>Clean cleanTrash</span>
     </menu-entry>
   </div>
 </template>
@@ -31,9 +46,36 @@ export default {
       membankSvc.saveToMembank(currentFile.id);
     },
 
-    LoadAMemory() {
-      const mId = '5a091737587f691dd4c8d36d';
-      membankSvc.loadAMemory(mId)
+    cleanTrash() {
+      store.getters['file/items']
+        .filter(file => file.parentId === 'trash') // If file is in the trash
+        .forEach((file) => {
+          store.dispatch('deleteFile', file.id);
+        });
+    },
+
+    cleanDisplayedMemories() {
+      // Clean files
+      store.getters['file/items']
+        .filter(file => file.name.includes('[Membank]')) // If file is loaded from membank
+        .forEach((file) => {
+          store.dispatch('deleteFile', file.id);
+        });
+    },
+
+    loadAllMemories() {
+      const person = 'Dante';
+      membankSvc.loadAllMemories(person)
+      .then((content) => {
+        const contentObj = JSON.parse(content);
+        contentObj.memory_ids.forEach((memoryId) => {
+          this.loadAMemory(memoryId);
+        });
+      });
+    },
+
+    loadAMemory(memoryId) {
+      membankSvc.loadAMemory(memoryId)
       .then((content) => {
         const contentObj = JSON.parse(content);
         const text = contentObj.content;
@@ -49,7 +91,7 @@ export default {
 
         this.$store.dispatch('createFile', {
           ...result,
-          name: `[${contentObj.date_created}]_[${mId}]`,
+          name: `[${contentObj.date_created}]_[${memoryId}]_[Membank]`,
         })
         .then((item) => {
           this.$store.commit('file/setCurrentId', item.id);
