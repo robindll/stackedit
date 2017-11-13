@@ -49,7 +49,7 @@ export default {
 
         this.$store.dispatch('createFile', {
           ...result,
-          name: `MemId_${mId}`,
+          name: `[${contentObj.date_created}]_[${mId}]`,
         })
         .then((item) => {
           this.$store.commit('file/setCurrentId', item.id);
