@@ -68,6 +68,7 @@ const store = new Vuex.Store({
       });
       commit('file/setItem', {
         id,
+        memoryId: desc.memoryId,
         name: utils.sanitizeName(desc.name),
         parentId: desc.parentId || null,
       });

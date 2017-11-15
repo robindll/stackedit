@@ -43,7 +43,7 @@ export default {
   methods: {
     saveToMembank() {
       const currentFile = this.$store.getters['file/current'];
-      membankSvc.saveToMembank(currentFile.id);
+      membankSvc.saveToMembank(currentFile);
     },
 
     cleanTrash() {
@@ -83,6 +83,7 @@ export default {
 
         const result = emptyContent();
         result.text = text;
+        result.memoryId = memoryId;
         result.history = [];
         result.hash = utils.hash(utils.serializeObject({
           ...result,
@@ -95,7 +96,7 @@ export default {
         })
         .then((item) => {
           this.$store.commit('file/setCurrentId', item.id);
-          store.dispatch('notification/info', `${store.getters['file/current'].name} was imported from Membank.`);
+          store.dispatch('notification/info', `${store.getters['file/current'].memoryId} was imported from Membank.`);
         });
       })
       .catch((e) => {

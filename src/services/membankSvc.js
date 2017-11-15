@@ -6,10 +6,16 @@ export default {
   /**
    * Export a file to disk.
    */
-  saveToMembank(fileId) {
+  saveToMembank(currentFile) {
+    const fileId = currentFile.id;
+    const memoryId = currentFile.memoryId === undefined
+                       ? 'undefined' : currentFile.memoryId;
     return localDbSvc.loadItem(`${fileId}/content`)
       .then((content) => {
-        alert(content.text);
+        alert(JSON.stringify({
+          memId: memoryId,
+          text: content.text,
+        }));
 
         // Post data to Membank.
         // Person fixed to Dante for now.
@@ -19,6 +25,7 @@ export default {
           path: '/memory/Dante',
           method: 'POST',
           headers: {
+            mem_id: memoryId,
             mem_title: 'No title',
             mem_description: 'No Description',
             'Content-Type': 'text/html',
