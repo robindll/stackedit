@@ -51,6 +51,39 @@ export default {
       });
   },
 
+  markMemoryRecalled(memoryId) {
+    // Post data to Membank.
+    // Person fixed to Dante for now.
+    const options = {
+      hostname: 'localhost',
+      port: 8081,
+      path: `/recall/mid/${memoryId}`,
+      method: 'POST',
+      headers: {
+        mem_id: memoryId,
+        mem_title: 'No title',
+        mem_description: 'No Description',
+        'Content-Type': 'text/html',
+      },
+    };
+
+    const req = http.request(options, (res) => {
+      console.log(`Status: ${res.statusCode}`);
+      console.log(`Headers: ${JSON.stringify(res.headers)}`);
+      res.setEncoding('utf8');
+      res.on('data', (body) => {
+        console.log(`Body: ${body}`);
+      });
+    });
+
+    req.on('error', (e) => {
+      console.log(`problem with request: ${e.message}`);
+    });
+
+    req.write(memoryId);
+    req.end();
+  },
+
   loadAllMemories(person) {
     return new Promise((resolve, reject) => {
       // Get all memory ids for given person

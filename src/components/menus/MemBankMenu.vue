@@ -5,6 +5,11 @@
       <div>Save to Membank</div>
       <span>Save to Membank</span>
     </menu-entry>
+    <menu-entry @click.native="markMemoryRecalled">
+      <icon-download slot="icon"></icon-download>
+      <div>Mark a memory is recalled now</div>
+      <span>Mark a memory is recalled</span>
+    </menu-entry>
     <menu-entry @click.native="cleanDisplayedMemories">
       <icon-download slot="icon"></icon-download>
       <div>Clean displayed memories</div>
@@ -44,6 +49,11 @@ export default {
     saveToMembank() {
       const currentFile = this.$store.getters['file/current'];
       membankSvc.saveToMembank(currentFile);
+    },
+
+    markMemoryRecalled() {
+      const currentFile = this.$store.getters['file/current'];
+      membankSvc.markMemoryRecalled(currentFile.memoryId);
     },
 
     cleanTrash() {
