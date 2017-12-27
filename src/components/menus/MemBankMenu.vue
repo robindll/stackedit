@@ -54,6 +54,8 @@ export default {
     markMemoryRecalled() {
       const currentFile = this.$store.getters['file/current'];
       membankSvc.markMemoryRecalled(currentFile.memoryId);
+      const currentTime = new Date();
+      store.dispatch('notification/info', `${store.getters['file/current'].memoryId} is marked as recalled at ${currentTime.toString()}.`);
     },
 
     cleanTrash() {
