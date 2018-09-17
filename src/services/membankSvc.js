@@ -20,7 +20,7 @@ export default {
         // Post data to Membank.
         // Person fixed to Dante for now.
         const options = {
-          hostname: 'localhost',
+          hostname: '13.66.169.176',
           port: 8081,
           path: '/memory/Dante',
           method: 'POST',
@@ -55,7 +55,7 @@ export default {
     // Post data to Membank.
     // Person fixed to Dante for now.
     const options = {
-      hostname: 'localhost',
+      hostname: '13.66.169.176',
       port: 8081,
       path: `/recall/mid/${memoryId}`,
       method: 'POST',
@@ -87,7 +87,7 @@ export default {
   loadAllMemories(person) {
     return new Promise((resolve, reject) => {
       // Get all memory ids for given person
-      const url = `http://localhost:8081/memory/${person}`;
+      const url = `http://13.66.169.176:8081/memory/${person}`;
       let body = '';
 
       const req = http.get(url, (res) => {
@@ -115,7 +115,7 @@ export default {
   loadAMemory(memoryId) {
     return new Promise((resolve, reject) => {
       // Get memory by memoryId.
-      const url = `http://localhost:8081/memory/mid/${memoryId}`;
+      const url = `http://13.66.169.176:8081/memory/mid/${memoryId}`;
       let body = '';
 
       const req = http.get(url, (res) => {
