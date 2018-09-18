@@ -1,0 +1,11 @@
+# Copy this file to /usr/local/lib/systemd/system/ directory
+[Unit]
+Description=Membank Web App
+
+[Service]
+WorkingDirectory=/home/dengzr/projects/stackedit
+ExecStart=/usr/bin/node /home/dengzr/projects/stackedit/index.js
+
+[Install]
+WantedBy=multi-user.target
+
